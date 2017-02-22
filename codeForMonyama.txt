@@ -1,0 +1,33 @@
+/*This code is for displaying text on the lcd, code for resetting
+using a tilt switch isn't included but if you want it let me know 
+check out http://arduino.cc/en/Reference/LiquidCrystal for more cool stuff on lcds*/
+
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(TOCK12,TOCK11,TOCK5,TOCK3,TOCK2); //Pins which the lcd is connected to the board/IC
+int switchCounter =  TOCK1;
+int counter = 0;
+int resetSwitch = TOCK4;
+void setup()
+{
+	lcd.begin(16,2);	//LCD consists of 16x2 grid so this initialises the entire lcd grid/matrix
+	lcd.setCursor(0,0); // sets the cursor to grid(0,0)
+}
+void loop()
+{
+	lcd.blink();
+	if(digitalRead(switchCounter) == HIGH) // if the switch is pressed the reading will be High
+	{
+		counter++; //Increase the counter since the switch is pressed 
+		lcd.print(counter);
+		delay(3000); //Cursor blink rate
+	}
+	if(digitalRead(resetSwitch) == HIGH) //if the reset switch is pressed the whole circuit is reset
+	{
+		counter = 0;
+		lcd.print(counter);
+		delay(3000);
+	}
+}
+	
